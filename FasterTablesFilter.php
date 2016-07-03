@@ -20,11 +20,20 @@ class FasterTablesFilter {
   </style>
   <p id='tables'></p>
   <script type="text/javascript">
-  var filterf = function () {
+    function readCookie(name) {
+        name = name.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
+        var regex = new RegExp('(?:^|;)\\s?' + name + '=(.*?)(?:;|$)','i'),
+            match = document.cookie.match(regex);
+        return match && unescape(match[1]);
+    }
+    
+    var filterf = function () {
+
     var spanProto = document.createElement('span');
     var aProto = document.createElement('a');
     var brProto = document.createElement('br');
-
+    var tableDiv = document.getElementById("tables");
+    
     function appendTables() {
       var fragment = document.createDocumentFragment();
       var item;
@@ -56,18 +65,20 @@ class FasterTablesFilter {
     var hMe = "<?php echo h(ME) ?>";
     hMe = hMe.replace(/&amp;/g, '&');
     var langSelect = "<?php echo lang('select');?>";
-
+    var filterCookie = readCookie('tableFilter');
 
     var filter = document.getElementById("filter-field");
-    var tableDiv = document.getElementById("tables");
-    filter.onkeyup = function(event) {
+    if(filterCookie!=''){
+        filter.value=filterCookie;
+    }
 
+    function filterTableList()    {
+      document.cookie = "tableFilter="+filter.value
       while(tableDiv.firstChild) {
         tableDiv.removeChild(tableDiv.firstChild);
       }
-
       tempTables = [];
-      var value = this.value.toLowerCase();
+      var value = filter.value.toLowerCase();
       var item;
       for (var i = 0, len = tables.length; i < len; i++) {
           item = tables[i];
@@ -77,9 +88,12 @@ class FasterTablesFilter {
       }
       appendTables();
     };
-
-    appendTables();
+    
+    filter.onkeyup = function(event) {
+        filterTableList();
+    }
+    filterTableList();
   }
-  filterf();
+  window.onload=filterf;
 </script>
 <?php return true;}} ?>
