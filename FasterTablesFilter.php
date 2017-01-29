@@ -27,7 +27,7 @@ class FasterTablesFilter {
 		return match && unescape(match[1]);
 	}
 	var filterf = function () {
-		var spanProto = document.createElement('span');
+		var divProto = document.createElement('div');
 		var aProto = document.createElement('a');
 		var brProto = document.createElement('br');
 		var tableDiv = document.getElementById("tables");
@@ -37,7 +37,7 @@ class FasterTablesFilter {
 			var item;
 			for (var i = 0, len = tempTables.length; i < len; i++) {
 				item = tempTables[i];
-				var span = spanProto.cloneNode();
+				var div = divProto.cloneNode();
 
 				var aSelect = aProto.cloneNode();
 				aSelect.href = hMe+"select="+item;
@@ -47,12 +47,12 @@ class FasterTablesFilter {
 				var aName = aProto.cloneNode();
 				aName.href = hMe+"table="+item;
 				aName.text = item;
-				span.appendChild(aSelect);
+				div.appendChild(aSelect);
 
-				span.appendChild(aName);
+				div.appendChild(aName);
 				var br = brProto.cloneNode();
-				span.appendChild(br);
-				fragment.appendChild(span);
+				div.appendChild(br);
+				fragment.appendChild(div);
 			}
 			tableDiv.appendChild(fragment);
 		}
