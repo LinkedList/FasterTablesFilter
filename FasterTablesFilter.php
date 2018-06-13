@@ -77,7 +77,7 @@ class FasterTablesFilter {
 			}
 			appendTables();
 		};
-		filter.onkeyup = function(event) {
+		filter.oninput = function(event) {
 			filterTableList();
 		}
 		filterTableList();
