@@ -19,7 +19,7 @@ class FasterTablesFilter {
     }
   </style>
   <p id='tables'></p>
-  <script<?php echo nonce(); ?>>
+  <script<?php echo Adminer\nonce(); ?>>
 	function readCookie(name) {
 		name = name.replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
 		var regex = new RegExp('(?:^|;)\\s?' + name + '=(.*?)(?:;|$)','i'),
@@ -53,9 +53,9 @@ class FasterTablesFilter {
 		}
 		var tables = [<?php foreach($tables as $table => $type) { echo "'".urlencode($table) ."'". ",";}?>];
 		var tempTables = tables;
-		var hMe = "<?php echo h(ME) ?>";
+		var hMe = "<?php echo Adminer\h(Adminer\ME) ?>";
 		hMe = hMe.replace(/&amp;/g, '&');
-		var langSelect = "<?php echo lang('select');?>";
+		var langSelect = "<?php echo Adminer\lang('select');?>";
 		var filterCookie = readCookie('tableFilter');
 		var filter = document.getElementById("filter-field");
 		if(filterCookie!='') {
